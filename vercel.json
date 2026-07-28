@@ -3,7 +3,9 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "node build.js",
   "outputDirectory": "dist",
+  "installCommand": "echo skip",
   "headers": [
     {
       "source": "/(.*)",
