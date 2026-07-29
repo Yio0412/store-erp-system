@@ -23,7 +23,12 @@ if (fs.existsSync(distDir)) {
 }
 fs.mkdirSync(distDir, { recursive: true });
 
-const skipItems = ['node_modules', 'dist', '.git', '.gitignore', 'build.js', 'package.json', 'package-lock.json', 'push-to-github.js'];
+const skipItems = [
+    'node_modules', 'dist', '.git', '.gitignore',
+    'build.js', 'package.json', 'package-lock.json',
+    'push-to-github.js', 'vite.config.js', 'vercel.json',
+    'public', 'README.md'
+];
 
 const items = fs.readdirSync(root, { withFileTypes: true });
 for (const item of items) {
@@ -36,3 +41,12 @@ for (const item of items) {
 }
 
 console.log('Build complete: files copied to dist/');
+console.log('Files in dist:');
+function listDir(dir, prefix) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const e of entries) {
+        console.log(prefix + e.name);
+        if (e.isDirectory()) listDir(path.join(dir, e.name), prefix + '  ');
+    }
+}
+listDir(distDir, '  ');
